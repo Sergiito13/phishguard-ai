@@ -105,13 +105,11 @@ ipython_config.py
 #   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
 #   This is especially recommended for binary packages to ensure reproducibility, and is more
 #   commonly ignored for libraries.
-#   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
 # poetry.lock
 # poetry.toml
 
 # pdm
 #   Similar to Pipfile.lock, it is generally recommended to include pdm.lock in version control.
-#   pdm recommends including project-wide configuration in pdm.toml, but excluding .pdm-python.
 #   https://pdm-project.org/en/latest/usage/project/#working-with-version-control
 # pdm.lock
 # pdm.toml
@@ -120,9 +118,6 @@ ipython_config.py
 
 # pixi
 #   Similar to Pipfile.lock, it is generally recommended to include pixi.lock in version control.
-# pixi.lock
-#   Pixi creates a virtual environment in the .pixi directory, just like venv module creates one
-#   in the .venv directory. It is recommended not to include this directory in version control.
 .pixi/*
 !.pixi/config.toml
 
@@ -184,10 +179,8 @@ dmypy.json
 cython_debug/
 
 # PyCharm
-#   JetBrains specific template is maintained in a separate JetBrains.gitignore that can
-#   be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
-#   and can be added to the global gitignore or merged into this file.  For a more nuclear
-#   option (not recommended) you can uncomment the following to ignore the entire idea folder.
+#   JetBrains specific template is maintained at:
+#   https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
 # .idea/
 
 # Abstra
@@ -197,11 +190,10 @@ cython_debug/
 .abstra/
 
 # Visual Studio Code
-#   Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore that
-#   can be found at https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
-#   and can be added to the global gitignore or merged into this file. However, if you prefer, you
-#   could uncomment the following to ignore the entire vscode folder
+#   Visual Studio Code specific template is maintained at:
+#   https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
 # .vscode/
+
 # Temporary file for partial code execution
 tempCodeRunnerFile.py
 
@@ -218,3 +210,168 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# ============================================================
+# PhishGuard AI - Project Specific
+# ============================================================
+
+
+# ------------------------------------------------------------
+# Machine Learning - Original Datasets
+# ------------------------------------------------------------
+# Raw datasets downloaded from external sources.
+# Original files must remain unchanged and should not
+# be committed to the repository.
+
+ml/data/raw/
+
+
+# ------------------------------------------------------------
+# Machine Learning - Processed Datasets
+# ------------------------------------------------------------
+# Cleaned, normalized and feature-engineered datasets.
+# These files are generated automatically by the
+# data preparation pipeline.
+
+ml/data/processed/
+
+
+# ------------------------------------------------------------
+# Machine Learning - Dataset Splits
+# ------------------------------------------------------------
+# Training, validation and test datasets.
+# These files are generated during data preparation.
+
+ml/data/splits/
+
+
+# ------------------------------------------------------------
+# Machine Learning - Trained Models
+# ------------------------------------------------------------
+# Trained models and serialized Machine Learning artifacts.
+# Models can be regenerated using the training pipeline.
+# Model metadata and evaluation reports can be versioned.
+
+ml/models/*.joblib
+ml/models/*.pkl
+ml/models/*.pickle
+ml/models/*.onnx
+ml/models/*.pt
+ml/models/*.pth
+ml/models/*.h5
+ml/models/*.keras
+
+
+# ------------------------------------------------------------
+# Machine Learning - Experiment Artifacts
+# ------------------------------------------------------------
+# Generated experiment outputs and temporary checkpoints.
+# Source code, notebooks and experiment configurations
+# should remain under version control.
+
+ml/experiments/
+ml/checkpoints/
+ml/runs/
+
+# MLflow local tracking artifacts
+mlruns/
+
+# TensorBoard logs
+tensorboard/
+
+
+# ------------------------------------------------------------
+# Frontend - React / TypeScript / Vite
+# ------------------------------------------------------------
+# Installed Node.js dependencies.
+# Build outputs and generated coverage reports.
+# package.json and lockfiles should be committed.
+
+node_modules/
+frontend/dist/
+frontend/coverage/
+*.tsbuildinfo
+
+# Vite local cache
+.vite/
+
+# ESLint cache
+.eslintcache
+
+
+# ------------------------------------------------------------
+# Backend - FastAPI
+# ------------------------------------------------------------
+# Local application files and generated artifacts.
+# Python dependencies are managed using requirements.txt
+# or another dependency management configuration.
+
+backend/uploads/
+backend/tmp/
+backend/coverage/
+
+
+# ------------------------------------------------------------
+# Docker
+# ------------------------------------------------------------
+# Local Docker override files and temporary artifacts.
+# Dockerfiles and docker-compose.yml must be committed.
+
+docker-compose.override.yml
+compose.override.yml
+
+# Local Docker volumes
+docker-data/
+docker-volumes/
+
+
+# ------------------------------------------------------------
+# Environment Variables and Secrets
+# ------------------------------------------------------------
+# Never commit credentials, API keys or local secrets.
+# Example configuration files can be committed.
+
+.env.*
+!.env.example
+
+*.pem
+*.key
+*.p12
+*.pfx
+
+
+# ------------------------------------------------------------
+# Temporary Files
+# ------------------------------------------------------------
+# Temporary files generated by editors, scripts and tools.
+
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+
+
+# ------------------------------------------------------------
+# Operating System Files
+# ------------------------------------------------------------
+# System-generated files that are not part of the project.
+
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+
+# ------------------------------------------------------------
+# IDE - Local Settings
+# ------------------------------------------------------------
+# Local IDE configurations.
+# Shared project settings can be versioned separately.
+
+.idea/
+
+
+# ============================================================
+# End of PhishGuard AI .gitignore
+# ============================================================
