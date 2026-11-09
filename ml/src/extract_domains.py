@@ -4,6 +4,13 @@ PhishGuard AI - Domain Extraction
 Extracts registrable domains and creates grouping keys
 for future train/validation/test splitting.
 
+Handles:
+- Standard registrable domains
+- Private Public Suffix List domains
+- Private suffix roots
+- IPv4 and IPv6 addresses
+- Invalid or unsupported URL formats
+
 Input:
     ml/data/processed/deduplicated_urls.csv
 
@@ -54,8 +61,18 @@ EXTRACTOR = tldextract.TLDExtract(
 # ============================================================
 
 def extract_domain_info(url: str) -> tuple:
+    """
+    Extract hostname, registrable domain and grouping key.
 
-    # Reuse our existing structural validator
+    Returns:
+        tuple:
+            hostname
+            registrable_domain
+            group_key
+            domain_status
+    """
+
+    # Reuse existing URL structural validator
     status, is_ip = validate_url(url)
 
     if status != "valid_structure":
@@ -71,7 +88,10 @@ def extract_domain_info(url: str) -> tuple:
 
     hostname = hostname.lower()
 
-    # Detect IP addresses
+    # --------------------------------------------------------
+    # HANDLE IP ADDRESSES
+    # --------------------------------------------------------
+
     if is_ip:
 
         normalized_ip = ip_address(hostname).compressed
@@ -83,16 +103,41 @@ def extract_domain_info(url: str) -> tuple:
             "ip",
         )
 
-    # Extract registrable domain
+    # --------------------------------------------------------
+    # EXTRACT REGISTRABLE DOMAIN
+    # --------------------------------------------------------
+
     result = EXTRACTOR(hostname)
 
     registrable_domain = (
         result.top_domain_under_public_suffix.lower()
     )
 
-    # Domain cannot be reliably determined
+    # --------------------------------------------------------
+    # HANDLE PRIVATE SUFFIX ROOTS
+    # --------------------------------------------------------
+
     if not registrable_domain:
 
+        # Example:
+        # s3.amazonaws.com
+        # cloudflare-ipfs.com
+        #
+        # These hostnames can be private PSL suffixes.
+        # They do not have a separate registrable domain.
+        #
+        # Use the complete hostname as a grouping key.
+
+        if result.is_private and not result.domain:
+
+            return (
+                hostname,
+                "",
+                f"host:{hostname}",
+                "private_suffix_root",
+            )
+
+        # Unknown or public suffix roots remain unresolved
         return (
             hostname,
             "",
@@ -100,7 +145,10 @@ def extract_domain_info(url: str) -> tuple:
             "unresolved_domain",
         )
 
-    # Create grouping key
+    # --------------------------------------------------------
+    # CREATE DOMAIN GROUPING KEY
+    # --------------------------------------------------------
+
     group_key = f"domain:{registrable_domain}"
 
     return (
@@ -121,6 +169,10 @@ def main():
     print("PHISHGUARD AI - DOMAIN EXTRACTION")
     print("=" * 60)
 
+    # --------------------------------------------------------
+    # LOAD DATASET
+    # --------------------------------------------------------
+
     if not INPUT_FILE.is_file():
         raise FileNotFoundError(
             f"Dataset not found: {INPUT_FILE}"
@@ -135,7 +187,10 @@ def main():
 
     print(f"\nTotal URLs: {len(df):,}")
 
-    # Extract domain information
+    # --------------------------------------------------------
+    # EXTRACT DOMAIN INFORMATION
+    # --------------------------------------------------------
+
     results = [
         extract_domain_info(url)
         for url in df["url"]
@@ -151,7 +206,10 @@ def main():
         ],
     )
 
-    # Combine original data and extracted information
+    # --------------------------------------------------------
+    # COMBINE ORIGINAL DATA WITH DOMAIN INFORMATION
+    # --------------------------------------------------------
+
     df = pd.concat(
         [
             df.reset_index(drop=True),
@@ -160,19 +218,24 @@ def main():
         axis=1,
     )
 
-    # Display domain status distribution
+    # --------------------------------------------------------
+    # DOMAIN STATUS DISTRIBUTION
+    # --------------------------------------------------------
+
     print("\n1. DOMAIN EXTRACTION RESULTS")
 
     print(
         df["domain_status"].value_counts()
     )
 
-    # Only URLs with a reliable grouping key
+    # --------------------------------------------------------
+    # ANALYZE DOMAIN GROUPS
+    # --------------------------------------------------------
+
     grouped_urls = df[
         df["group_key"] != ""
     ]
 
-    # Analyze domain groups
     groups = (
         grouped_urls.groupby("group_key")
         .agg(
@@ -183,7 +246,9 @@ def main():
 
     print("\n2. DOMAIN GROUP STATISTICS")
 
-    print(f"Total groups: {len(groups):,}")
+    print(
+        f"Total groups: {len(groups):,}"
+    )
 
     print(
         "Groups containing multiple URLs:",
@@ -200,13 +265,20 @@ def main():
         f"{groups['url_count'].max():,}"
     )
 
+    # --------------------------------------------------------
+    # URLS WITHOUT RELIABLE GROUPING KEY
+    # --------------------------------------------------------
+
     print("\n3. URLs WITHOUT RELIABLE GROUPING KEY")
 
     print(
         f"{(df['group_key'] == '').sum():,}"
     )
 
-    # Save processed dataset
+    # --------------------------------------------------------
+    # SAVE RESULTS
+    # --------------------------------------------------------
+
     OUTPUT_FILE.parent.mkdir(
         parents=True,
         exist_ok=True,
@@ -221,6 +293,10 @@ def main():
 
     print("\nDomain extraction completed successfully.")
 
+
+# ============================================================
+# 5. ENTRY POINT
+# ============================================================
 
 if __name__ == "__main__":
     main()
