@@ -7,7 +7,10 @@ Main entry point for the phishing detection REST API.
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routes import health
+from app.api.routes import (
+    health,
+    analyze,
+)
 
 
 # ============================================================
@@ -16,7 +19,10 @@ from app.api.routes import health
 
 app = FastAPI(
     title="PhishGuard AI API",
-    description="REST API for phishing URL detection using Machine Learning.",
+    description=(
+        "REST API for phishing URL detection "
+        "powered by Machine Learning."
+    ),
     version="0.1.0",
     docs_url="/docs",
     redoc_url="/redoc",
@@ -44,10 +50,21 @@ app.add_middleware(
 # API ROUTERS
 # ============================================================
 
+# Health check endpoint
+
 app.include_router(
     health.router,
     prefix="/api/v1",
     tags=["Health"],
+)
+
+
+# Phishing analysis endpoint
+
+app.include_router(
+    analyze.router,
+    prefix="/api/v1",
+    tags=["Analysis"],
 )
 
 
@@ -57,6 +74,10 @@ app.include_router(
 
 @app.get("/", tags=["Root"])
 def root():
+    """
+    Return basic API information.
+    """
+
     return {
         "name": "PhishGuard AI API",
         "version": "0.1.0",
