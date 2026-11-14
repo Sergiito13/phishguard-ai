@@ -1,122 +1,98 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react';
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { ArrowRight, CheckCircle, Database, Search, ShieldCheck, Xmark } from 'iconoir-react';
+import Header from './components/Header';
+import BackgroundArt from './components/BackgroundArt';
+import Home from './components/Home';
+import Report from './components/Report';
+import { analyzeURL, createPreviewResult, createSampleResult, type AnalysisResult } from './lib/analysis';
 
-function App() {
-  const [count, setCount] = useState(0)
+type Theme = 'dark' | 'light';
+type RouteState = { result?: AnalysisResult } | null;
+
+export default function App() {
+  const [theme, setTheme] = useState<Theme>('dark');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [howOpen, setHowOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const goHome = () => {
+    setError(null);
+    navigate('/');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const onAnalyze = async (url: string) => {
+    setError(null);
+    setBusy(true);
+    try {
+      const result = await analyzeURL(url);
+      navigate(`/analysis?url=${encodeURIComponent(result.url)}`, { state: { result } });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : 'An unexpected error occurred.');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const onSample = () => {
+    navigate('/analysis?sample=1', { state: { result: createSampleResult() } });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setHowOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
+
+  const params = new URLSearchParams(location.search);
+  const rememberedResult = (location.state as RouteState)?.result;
+  const queryURL = params.get('url');
+  let result: AnalysisResult | null = rememberedResult ?? null;
+  if (!result && params.get('sample') === '1') result = createSampleResult();
+  if (!result && queryURL) {
+    try { result = createPreviewResult(queryURL); } catch { result = null; }
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="app-root" data-theme={theme}>
+      <div className="app-shell">
+        <BackgroundArt />
+        <Header
+          theme={theme}
+          onThemeToggle={() => setTheme(current => current === 'dark' ? 'light' : 'dark')}
+          onHome={goHome}
+          onHow={() => setHowOpen(true)}
+        />
+        <Routes>
+          <Route path="/" element={<Home onAnalyze={onAnalyze} onSample={onSample} busy={busy} error={error} />} />
+          <Route path="/analysis" element={result ? <Report result={result} onBack={goHome} /> : <Navigate to="/" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+      {howOpen && (
+        <div className="modal-overlay" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setHowOpen(false); }}>
+          <section className="how-modal" role="dialog" aria-modal="true" aria-labelledby="how-title">
+            <button type="button" className="modal-close" onClick={() => setHowOpen(false)} aria-label="Close dialog"><Xmark width={21} height={21} /></button>
+            <span className="modal-kicker">UNDER THE HOOD</span>
+            <h2 id="how-title">Simple input.<br /><span>Thoughtful analysis.</span></h2>
+            <p className="modal-lead">PhishGuard AI is an experimental URL-classification project built around structural features and machine learning.</p>
+            <div className="modal-steps">
+              <div><Search width={24} height={24} /><span><strong>01 / Enter a link</strong><small>We validate and parse the URL, without browsing the destination.</small></span></div>
+              <div><Database width={24} height={24} /><span><strong>02 / Extract patterns</strong><small>The Python backend extracts 20 lexical and structural features.</small></span></div>
+              <div><ShieldCheck width={24} height={24} /><span><strong>03 / Review an experimental verdict</strong><small>The model can flag a URL, but cannot guarantee safety.</small></span></div>
+            </div>
+            <button type="button" className="modal-action" onClick={() => setHowOpen(false)}>Got it <ArrowRight width={17} height={17} /></button>
+            <div className="modal-disclaimer"><CheckCircle width={15} height={15} /> Designed to integrate with FastAPI in the next phase.</div>
+          </section>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      )}
+    </div>
+  );
 }
-
-export default App
