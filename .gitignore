@@ -27,8 +27,8 @@ share/python-wheels/
 MANIFEST
 
 # PyInstaller
-#   Usually these files are written by a python script from a template
-#   before PyInstaller builds the exe, so as to inject date/other infos into it.
+#   Usually these files are written by a script from a template
+#   and are not part of the source code.
 *.manifest
 *.spec
 
@@ -56,17 +56,17 @@ cover/
 *.mo
 *.pot
 
-# Django stuff:
+# Django stuff
 *.log
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
 
-# Flask stuff:
+# Flask stuff
 instance/
 .webassets-cache
 
-# Scrapy stuff:
+# Scrapy stuff
 .scrapy
 
 # Sphinx documentation
@@ -84,52 +84,30 @@ profile_default/
 ipython_config.py
 
 # pyenv
-#   For a library or package, you might want to ignore these files since the code is
-#   intended to run in multiple environments; otherwise, check them in:
 # .python-version
 
 # pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-# Pipfile.lock
+# Pipfile.lock should generally be committed when appropriate.
 
 # uv
-#   Similar to Pipfile.lock, it is generally recommended to include uv.lock in version control.
-#   This is especially recommended for binary packages to ensure reproducibility, and is more
-#   commonly ignored for libraries.
-# uv.lock
+# uv.lock should generally be committed when appropriate.
 
 # poetry
-#   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
-#   This is especially recommended for binary packages to ensure reproducibility, and is more
-#   commonly ignored for libraries.
-#   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
-# poetry.lock
-# poetry.toml
+# poetry.lock should generally be committed when appropriate.
+poetry.toml
 
 # pdm
-#   Similar to Pipfile.lock, it is generally recommended to include pdm.lock in version control.
-#   pdm recommends including project-wide configuration in pdm.toml, but excluding .pdm-python.
-#   https://pdm-project.org/en/latest/usage/project/#working-with-version-control
-# pdm.lock
-# pdm.toml
 .pdm-python
 .pdm-build/
 
 # pixi
-#   Similar to Pipfile.lock, it is generally recommended to include pixi.lock in version control.
-# pixi.lock
-#   Pixi creates a virtual environment in the .pixi directory, just like venv module creates one
-#   in the .venv directory. It is recommended not to include this directory in version control.
 .pixi/*
 !.pixi/config.toml
 
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
+# PEP 582
 __pypackages__/
 
-# Celery stuff
+# Celery
 celerybeat-schedule*
 celerybeat.pid
 
@@ -146,7 +124,7 @@ rabbitmq-data/
 # ActiveMQ
 activemq-data/
 
-# SageMath parsed files
+# SageMath
 *.sage.py
 
 # Environments
@@ -159,14 +137,14 @@ ENV/
 env.bak/
 venv.bak/
 
-# Spyder project settings
+# Spyder
 .spyderproject
 .spyproject
 
-# Rope project settings
+# Rope
 .ropeproject
 
-# mkdocs/Zensical documentation
+# mkdocs / Zensical
 /site
 
 # mypy
@@ -174,41 +152,31 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
-# Pyre type checker
+# Pyre
 .pyre/
 
-# pytype static type analyzer
+# pytype
 .pytype/
 
-# Cython debug symbols
+# Cython
 cython_debug/
 
 # PyCharm
-#   JetBrains specific template is maintained in a separate JetBrains.gitignore that can
-#   be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
-#   and can be added to the global gitignore or merged into this file.  For a more nuclear
-#   option (not recommended) you can uncomment the following to ignore the entire idea folder.
-# .idea/
+.idea/
 
 # Abstra
-#   Abstra is an AI-powered process automation framework.
-#   Ignore directories containing user credentials, local state, and settings.
-#   Learn more at https://abstra.io/docs
 .abstra/
 
 # Visual Studio Code
-#   Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore that
-#   can be found at https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
-#   and can be added to the global gitignore or merged into this file. However, if you prefer, you
-#   could uncomment the following to ignore the entire vscode folder
-# .vscode/
+.vscode/
+
 # Temporary file for partial code execution
 tempCodeRunnerFile.py
 
-# Ruff stuff:
+# Ruff
 .ruff_cache/
 
-# PyPI configuration file
+# PyPI
 .pypirc
 
 # Marimo
@@ -218,3 +186,182 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# ============================================================
+# PhishGuard AI - Project Specific
+# ============================================================
+
+
+# ------------------------------------------------------------
+# Machine Learning - Original Datasets
+# ------------------------------------------------------------
+# Raw datasets downloaded from external sources.
+# Original files must remain unchanged and should not
+# be committed to the repository.
+
+ml/data/raw/
+
+
+# ------------------------------------------------------------
+# Machine Learning - Processed Datasets
+# ------------------------------------------------------------
+# Cleaned, normalized and feature-engineered datasets.
+# These files are generated automatically by the
+# data preparation pipeline.
+
+ml/data/processed/
+
+
+# ------------------------------------------------------------
+# Machine Learning - Dataset Splits
+# ------------------------------------------------------------
+# Training, validation and test datasets.
+# These files are generated during data preparation.
+
+ml/data/splits/
+
+
+# ------------------------------------------------------------
+# Machine Learning - Trained Models
+# ------------------------------------------------------------
+# Ignore generated and experimental ML model artifacts.
+# Only the official experimental model is versioned.
+#
+# This allows other developers to run PhishGuard AI
+# without retraining the initial model.
+#
+# Future models will remain ignored until explicitly
+# approved for version control.
+
+ml/models/*.joblib
+ml/models/*.pkl
+ml/models/*.pickle
+ml/models/*.onnx
+ml/models/*.pt
+ml/models/*.pth
+ml/models/*.h5
+ml/models/*.keras
+
+# Official PhishGuard AI experimental model
+# Version: v0.1.0-alpha.1
+# Algorithm: HistGradientBoostingClassifier
+# Used by the FastAPI backend for URL predictions.
+
+!ml/models/hgb_baseline.joblib
+
+
+# ------------------------------------------------------------
+# Machine Learning - Experiment Artifacts
+# ------------------------------------------------------------
+# Generated experiment outputs and temporary checkpoints.
+# Source code, notebooks and experiment configurations
+# should remain under version control.
+
+ml/experiments/
+ml/checkpoints/
+ml/runs/
+
+# MLflow local tracking artifacts
+mlruns/
+
+# TensorBoard logs
+tensorboard/
+
+
+# ------------------------------------------------------------
+# Frontend - React / TypeScript / Vite
+# ------------------------------------------------------------
+# Installed Node.js dependencies.
+# Build outputs and generated coverage reports.
+# package.json and lockfiles should be committed.
+
+node_modules/
+frontend/dist/
+frontend/coverage/
+*.tsbuildinfo
+
+# Vite local cache
+.vite/
+
+# ESLint cache
+.eslintcache
+
+
+# ------------------------------------------------------------
+# Backend - FastAPI
+# ------------------------------------------------------------
+# Local application files and generated artifacts.
+# Python dependencies are managed using requirements.txt
+# or another dependency management configuration.
+
+backend/uploads/
+backend/tmp/
+backend/coverage/
+
+
+# ------------------------------------------------------------
+# Docker
+# ------------------------------------------------------------
+# Local Docker override files and temporary artifacts.
+# Dockerfiles and docker-compose.yml must be committed.
+
+docker-compose.override.yml
+compose.override.yml
+
+# Local Docker volumes
+docker-data/
+docker-volumes/
+
+
+# ------------------------------------------------------------
+# Environment Variables and Secrets
+# ------------------------------------------------------------
+# Never commit credentials, API keys or local secrets.
+# Example configuration files can be committed.
+
+.env.*
+!.env.example
+
+*.pem
+*.key
+*.p12
+*.pfx
+
+
+# ------------------------------------------------------------
+# Temporary Files
+# ------------------------------------------------------------
+# Temporary files generated by editors, scripts and tools.
+
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+
+
+# ------------------------------------------------------------
+# Operating System Files
+# ------------------------------------------------------------
+# System-generated files that are not part of the project.
+
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+
+# ------------------------------------------------------------
+# IDE - Local Settings
+# ------------------------------------------------------------
+
+.idea/
+
+
+# ============================================================
+# Frontend - Application Source Libraries
+# ============================================================
+
+# Allow React/TypeScript source utilities
+!/frontend/src/lib/
+!/frontend/src/lib/**
