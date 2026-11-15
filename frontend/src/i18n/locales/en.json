@@ -1,0 +1,141 @@
+{
+  "common": {
+    "selectLanguage": "Select language",
+    "changeTheme": "Change theme",
+    "lightMode": "Switch to light mode",
+    "darkMode": "Switch to dark mode",
+    "home": "Go to PhishGuard AI home"
+  },
+  "navigation": {
+    "main": "Main navigation",
+    "howItWorks": "How it works",
+    "documentation": "Documentation"
+  },
+  "home": {
+    "eyebrow": "AI-POWERED SECURITY",
+    "title": {
+      "first": "Think before",
+      "second": "you ",
+      "highlight": "click."
+    },
+    "description": "Intelligent phishing detection. Analyze suspicious links in seconds with machine learning.",
+    "urlLabel": "URL to analyze",
+    "urlPlaceholder": "Enter a URL (e.g. https://example.com)",
+    "analyze": "Analyze URL",
+    "analyzing": "Analyzing…",
+    "connected": "Connected to the experimental model API",
+    "notConnected": "Frontend preview · Model not connected yet",
+    "sampleReport": "View sample report",
+    "highlights": "Highlights",
+    "features": {
+      "fast": { "title": "Fast & focused", "description": "Explore URL patterns in seconds." },
+      "ai": { "title": "AI-powered", "description": "Built around a machine learning model." },
+      "privacy": { "title": "Privacy first", "description": "We inspect the URL text, not the page." }
+    },
+    "footer": {
+      "open": "Open source",
+      "developers": "Built for developers",
+      "improving": "Continuously improving"
+    }
+  },
+  "how": {
+    "close": "Close dialog",
+    "kicker": "UNDER THE HOOD",
+    "titleFirst": "Simple input.",
+    "titleAccent": "Thoughtful analysis.",
+    "lead": "PhishGuard AI is an experimental URL-classification project built around structural features and machine learning.",
+    "step1Title": "01 / Enter a link",
+    "step1Text": "We validate and parse the URL, without browsing the destination.",
+    "step2Title": "02 / Extract patterns",
+    "step2Text": "The Python backend extracts 20 numerical and structural features.",
+    "step3Title": "03 / Review an experimental verdict",
+    "step3Text": "The model can flag a URL, but cannot guarantee that it is safe or malicious.",
+    "confirm": "Got it",
+    "disclaimer": "Analysis uses FastAPI and an experimental machine learning model."
+  },
+  "report": {
+    "back": "Back to home",
+    "title": "Analysis report",
+    "tagSample": "ILLUSTRATIVE DEMO",
+    "tagPreview": "PREVIEW ONLY",
+    "tagApi": "EXPERIMENTAL ML",
+    "summary": "Analysis summary",
+    "status": {
+      "pendingTitle": "Your URL is ready to preview",
+      "phishingTitle": "Potential phishing detected",
+      "notFlaggedTitle": "No suspicious classification",
+      "pendingText": "The interface is ready. Connect the FastAPI backend to obtain a model prediction.",
+      "sampleText": "This is an illustrative sample report. The classification and score are not from the trained model.",
+      "phishingText": "The experimental model flagged this URL. Review it carefully before visiting.",
+      "notFlaggedText": "The experimental model did not flag this URL. This does not establish that it is safe."
+    },
+    "score": {
+      "sample": "Demo score",
+      "model": "Model score",
+      "notReal": "Not a real prediction",
+      "pending": "Awaiting API connection",
+      "calibrated": "Calibrated by backend",
+      "uncalibrated": "Uncalibrated output"
+    },
+    "details": {
+      "title": "Analysis details",
+      "classification": "Classification",
+      "pending": "Pending model",
+      "phishing": "Phishing flagged",
+      "notFlagged": "Not flagged",
+      "domain": "Domain",
+      "protocol": "Protocol",
+      "urlLength": "URL length",
+      "characters": "{{value}} characters",
+      "segments": "Hostname segments",
+      "model": "Model",
+      "modelNotConnected": "Not connected",
+      "demoOnly": "Demo only"
+    },
+    "signals": {
+      "title": "Key signals detected",
+      "empty": "No explainability signals are available yet.",
+      "pending": "Connect the backend to analyze this URL.",
+      "notAvailable": "The current model does not provide verified per-URL explanations."
+    },
+    "contributions": {
+      "titleSample": "Feature contribution (sample)",
+      "titleModel": "Feature contribution (model)",
+      "info": "Explainability values must be supplied by the backend; sample bars are illustrative.",
+      "empty": "Feature-level explanations will appear when supported by a validated model. We do not invent attribution percentages."
+    },
+    "footnote": {
+      "sample": "Illustrative screen only. The 94% score and feature breakdown are placeholders, not ML output.",
+      "pending": "Frontend-only preview: no model inference has taken place.",
+      "api": "Experimental model: an unflagged URL may still be malicious. Scores are not verified probabilities of phishing."
+    }
+  },
+  "sample": {
+    "signals": {
+      "brand": "Sample: familiar brand name embedded in a longer domain",
+      "structure": "Sample: domain structure resembles an account verification page",
+      "terms": "Sample: terms such as “login”, “security”, and “verify”",
+      "path": "Sample: path requests account verification"
+    },
+    "contributions": {
+      "brand": "Brand-like domain pattern",
+      "keywords": "Account-related keywords",
+      "length": "URL length",
+      "hostname": "Hostname structure",
+      "special": "Special characters"
+    }
+  },
+  "errors": {
+    "emptyUrl": "Enter a URL to continue.",
+    "tooLong": "The URL is too long (maximum 2,048 characters).",
+    "invalidUrl": "Enter a complete URL, for example https://example.com.",
+    "unsupportedUrl": "Only complete HTTP or HTTPS URLs with a hostname are supported.",
+    "http": "The analysis service returned HTTP {{status}}.",
+    "invalidResponse": "The analysis service returned an invalid response.",
+    "unknownClassification": "Unknown classification returned by the analysis service.",
+    "invalidScore": "Invalid model score returned by the analysis service.",
+    "timeout": "The analysis service did not respond in time.",
+    "connection": "Could not connect to the analysis service. Check that FastAPI is running.",
+    "unexpected": "An unexpected error occurred."
+  }
+}

@@ -10,9 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "flag-icons": "^7.6.0",
+    "i18next": "^27.1.2",
+    "i18next-browser-languagedetector": "^8.3.0",
     "iconoir-react": "^7.12.2",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
+    "react-i18next": "^18.0.1",
     "react-router-dom": "^7.18.5"
   },
   "devDependencies": {
