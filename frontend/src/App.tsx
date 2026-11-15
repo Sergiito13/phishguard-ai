@@ -29,7 +29,7 @@ export default function App() {
     setBusy(true);
     try {
       const result = await analyzeURL(url);
-      navigate(`/analysis?url=${encodeURIComponent(result.url)}`, { state: { result } });
+      navigate('/analysis', { state: { result } });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : 'An unexpected error occurred.');
