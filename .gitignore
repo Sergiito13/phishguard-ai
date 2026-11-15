@@ -371,7 +371,10 @@ Desktop.ini
 
 .idea/
 
+# ============================================================
+# Frontend - Application Source Libraries
+# ============================================================
 
-# ============================================================
-# End of PhishGuard AI .gitignore
-# ============================================================
+# Allow React/TypeScript source utilities
+!/frontend/src/lib/
+!/frontend/src/lib/**
