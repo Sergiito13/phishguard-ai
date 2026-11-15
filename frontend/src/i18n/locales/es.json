@@ -1,0 +1,141 @@
+{
+  "common": {
+    "selectLanguage": "Seleccionar idioma",
+    "changeTheme": "Cambiar tema",
+    "lightMode": "Cambiar a modo claro",
+    "darkMode": "Cambiar a modo oscuro",
+    "home": "Ir al inicio de PhishGuard AI"
+  },
+  "navigation": {
+    "main": "Navegación principal",
+    "howItWorks": "Cómo funciona",
+    "documentation": "Documentación"
+  },
+  "home": {
+    "eyebrow": "SEGURIDAD CON IA",
+    "title": {
+      "first": "Piensa antes",
+      "second": "de hacer ",
+      "highlight": "clic."
+    },
+    "description": "Detección inteligente de phishing. Analiza enlaces sospechosos en segundos con aprendizaje automático.",
+    "urlLabel": "URL que quieres analizar",
+    "urlPlaceholder": "Introduce una URL (p. ej., https://example.com)",
+    "analyze": "Analizar URL",
+    "analyzing": "Analizando…",
+    "connected": "Conectado a la API del modelo experimental",
+    "notConnected": "Vista previa · Modelo no conectado",
+    "sampleReport": "Ver informe de ejemplo",
+    "highlights": "Características principales",
+    "features": {
+      "fast": { "title": "Rápido y sencillo", "description": "Explora los patrones de una URL en segundos." },
+      "ai": { "title": "Con inteligencia artificial", "description": "Basado en un modelo de aprendizaje automático." },
+      "privacy": { "title": "Privacidad ante todo", "description": "Analizamos la URL, no el contenido de la página." }
+    },
+    "footer": {
+      "open": "Código abierto",
+      "developers": "Creado para desarrolladores",
+      "improving": "En constante evolución"
+    }
+  },
+  "how": {
+    "close": "Cerrar ventana",
+    "kicker": "ASÍ FUNCIONA",
+    "titleFirst": "Un enlace.",
+    "titleAccent": "Un análisis claro.",
+    "lead": "PhishGuard AI es un proyecto experimental que clasifica URL mediante características estructurales y aprendizaje automático.",
+    "step1Title": "01 / Introduce un enlace",
+    "step1Text": "Validamos la estructura de la URL sin visitar la página de destino.",
+    "step2Title": "02 / Extraemos patrones",
+    "step2Text": "El backend de Python analiza 20 características numéricas y estructurales.",
+    "step3Title": "03 / Consulta el resultado experimental",
+    "step3Text": "El modelo puede marcar una URL, pero no garantiza que sea segura o maliciosa.",
+    "confirm": "Entendido",
+    "disclaimer": "El análisis utiliza FastAPI y un modelo experimental de aprendizaje automático."
+  },
+  "report": {
+    "back": "Volver al inicio",
+    "title": "Informe de análisis",
+    "tagSample": "EJEMPLO ILUSTRATIVO",
+    "tagPreview": "SOLO VISTA PREVIA",
+    "tagApi": "MODELO EXPERIMENTAL",
+    "summary": "Resumen del análisis",
+    "status": {
+      "pendingTitle": "Tu URL está lista para la vista previa",
+      "phishingTitle": "Posible phishing detectado",
+      "notFlaggedTitle": "Sin clasificación sospechosa",
+      "pendingText": "La interfaz está lista. Conecta FastAPI para obtener una predicción del modelo.",
+      "sampleText": "Este informe es ilustrativo. La clasificación y la puntuación no proceden del modelo entrenado.",
+      "phishingText": "El modelo experimental ha marcado esta URL. Revísala con cuidado antes de acceder.",
+      "notFlaggedText": "El modelo experimental no ha marcado esta URL. Esto no demuestra que sea segura."
+    },
+    "score": {
+      "sample": "Puntuación de ejemplo",
+      "model": "Puntuación del modelo",
+      "notReal": "No es una predicción real",
+      "pending": "Esperando la conexión con la API",
+      "calibrated": "Calibrado por el backend",
+      "uncalibrated": "Resultado no calibrado"
+    },
+    "details": {
+      "title": "Detalles del análisis",
+      "classification": "Clasificación",
+      "pending": "Pendiente",
+      "phishing": "Phishing detectado",
+      "notFlagged": "No marcada",
+      "domain": "Dominio",
+      "protocol": "Protocolo",
+      "urlLength": "Longitud de la URL",
+      "characters": "{{value}} caracteres",
+      "segments": "Segmentos del dominio",
+      "model": "Modelo",
+      "modelNotConnected": "Sin conectar",
+      "demoOnly": "Solo demostración"
+    },
+    "signals": {
+      "title": "Indicadores detectados",
+      "empty": "Todavía no hay indicadores explicativos disponibles.",
+      "pending": "Conecta el backend para analizar esta URL.",
+      "notAvailable": "El modelo actual todavía no proporciona explicaciones verificadas para cada URL."
+    },
+    "contributions": {
+      "titleSample": "Contribución de características (ejemplo)",
+      "titleModel": "Contribución de características (modelo)",
+      "info": "Los valores explicativos deben proceder del backend; las barras de ejemplo son ilustrativas.",
+      "empty": "Las explicaciones por característica aparecerán cuando dispongamos de un método validado. No inventamos porcentajes de contribución."
+    },
+    "footnote": {
+      "sample": "Esta pantalla es ilustrativa: el 94 % y las contribuciones son datos de demostración, no resultados del modelo.",
+      "pending": "Vista previa del frontend: no se ha ejecutado el modelo.",
+      "api": "Modelo experimental: una URL no marcada podría ser maliciosa. Las puntuaciones no son probabilidades de phishing calibradas."
+    }
+  },
+  "sample": {
+    "signals": {
+      "brand": "Ejemplo: nombre de marca conocida dentro de un dominio más largo",
+      "structure": "Ejemplo: estructura de dominio similar a una página de verificación de cuenta",
+      "terms": "Ejemplo: términos como «login», «security» y «verify»",
+      "path": "Ejemplo: ruta que solicita verificar la cuenta"
+    },
+    "contributions": {
+      "brand": "Patrón de dominio con marca",
+      "keywords": "Palabras relacionadas con cuentas",
+      "length": "Longitud de la URL",
+      "hostname": "Estructura del dominio",
+      "special": "Caracteres especiales"
+    }
+  },
+  "errors": {
+    "emptyUrl": "Introduce una URL para continuar.",
+    "tooLong": "La URL es demasiado larga (máximo 2048 caracteres).",
+    "invalidUrl": "Introduce una URL completa, por ejemplo https://example.com.",
+    "unsupportedUrl": "Solo se admiten URL completas HTTP o HTTPS con un dominio válido.",
+    "http": "El servicio de análisis ha devuelto el error HTTP {{status}}.",
+    "invalidResponse": "El servicio de análisis ha devuelto una respuesta no válida.",
+    "unknownClassification": "El servicio ha devuelto una clasificación desconocida.",
+    "invalidScore": "El servicio ha devuelto una puntuación no válida.",
+    "timeout": "El servicio de análisis no ha respondido a tiempo.",
+    "connection": "No se puede conectar con el servicio de análisis. Comprueba que FastAPI esté en ejecución.",
+    "unexpected": "Se ha producido un error inesperado."
+  }
+}

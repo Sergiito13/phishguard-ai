@@ -1,19 +1,27 @@
 import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ArrowRight, CheckCircle, Database, Search, ShieldCheck, Xmark } from 'iconoir-react';
 import Header from './components/Header';
 import BackgroundArt from './components/BackgroundArt';
 import Home from './components/Home';
 import Report from './components/Report';
-import { analyzeURL, createPreviewResult, createSampleResult, type AnalysisResult } from './lib/analysis';
+import {
+  AnalysisError,
+  analyzeURL,
+  createSampleResult,
+  type AnalysisFailure,
+  type AnalysisResult,
+} from './lib/analysis';
 
 type Theme = 'dark' | 'light';
 type RouteState = { result?: AnalysisResult } | null;
 
 export default function App() {
+  const { t } = useTranslation();
   const [theme, setTheme] = useState<Theme>('dark');
   const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<AnalysisFailure | null>(null);
   const [howOpen, setHowOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,10 +37,13 @@ export default function App() {
     setBusy(true);
     try {
       const result = await analyzeURL(url);
+      // Avoid putting potentially sensitive URL parameters in browser history.
       navigate('/analysis', { state: { result } });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : 'An unexpected error occurred.');
+      setError(reason instanceof AnalysisError
+        ? { key: reason.key, options: reason.options }
+        : { key: 'errors.unexpected' });
     } finally {
       setBusy(false);
     }
@@ -53,12 +64,8 @@ export default function App() {
 
   const params = new URLSearchParams(location.search);
   const rememberedResult = (location.state as RouteState)?.result;
-  const queryURL = params.get('url');
   let result: AnalysisResult | null = rememberedResult ?? null;
   if (!result && params.get('sample') === '1') result = createSampleResult();
-  if (!result && queryURL) {
-    try { result = createPreviewResult(queryURL); } catch { result = null; }
-  }
 
   return (
     <div className="app-root" data-theme={theme}>
@@ -76,20 +83,40 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
+
       {howOpen && (
-        <div className="modal-overlay" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setHowOpen(false); }}>
+        <div
+          className="modal-overlay"
+          role="presentation"
+          onMouseDown={event => { if (event.target === event.currentTarget) setHowOpen(false); }}
+        >
           <section className="how-modal" role="dialog" aria-modal="true" aria-labelledby="how-title">
-            <button type="button" className="modal-close" onClick={() => setHowOpen(false)} aria-label="Close dialog"><Xmark width={21} height={21} /></button>
-            <span className="modal-kicker">UNDER THE HOOD</span>
-            <h2 id="how-title">Simple input.<br /><span>Thoughtful analysis.</span></h2>
-            <p className="modal-lead">PhishGuard AI is an experimental URL-classification project built around structural features and machine learning.</p>
+            <button type="button" className="modal-close" onClick={() => setHowOpen(false)} aria-label={t('how.close')}>
+              <Xmark width={21} height={21} />
+            </button>
+            <span className="modal-kicker">{t('how.kicker')}</span>
+            <h2 id="how-title">{t('how.titleFirst')}<br /><span>{t('how.titleAccent')}</span></h2>
+            <p className="modal-lead">{t('how.lead')}</p>
             <div className="modal-steps">
-              <div><Search width={24} height={24} /><span><strong>01 / Enter a link</strong><small>We validate and parse the URL, without browsing the destination.</small></span></div>
-              <div><Database width={24} height={24} /><span><strong>02 / Extract patterns</strong><small>The Python backend extracts 20 lexical and structural features.</small></span></div>
-              <div><ShieldCheck width={24} height={24} /><span><strong>03 / Review an experimental verdict</strong><small>The model can flag a URL, but cannot guarantee safety.</small></span></div>
+              <div>
+                <Search width={24} height={24} />
+                <span><strong>{t('how.step1Title')}</strong><small>{t('how.step1Text')}</small></span>
+              </div>
+              <div>
+                <Database width={24} height={24} />
+                <span><strong>{t('how.step2Title')}</strong><small>{t('how.step2Text')}</small></span>
+              </div>
+              <div>
+                <ShieldCheck width={24} height={24} />
+                <span><strong>{t('how.step3Title')}</strong><small>{t('how.step3Text')}</small></span>
+              </div>
             </div>
-            <button type="button" className="modal-action" onClick={() => setHowOpen(false)}>Got it <ArrowRight width={17} height={17} /></button>
-            <div className="modal-disclaimer"><CheckCircle width={15} height={15} /> Designed to integrate with FastAPI in the next phase.</div>
+            <button type="button" className="modal-action" onClick={() => setHowOpen(false)}>
+              {t('how.confirm')} <ArrowRight width={17} height={17} />
+            </button>
+            <div className="modal-disclaimer">
+              <CheckCircle width={15} height={15} /> {t('how.disclaimer')}
+            </div>
           </section>
         </div>
       )}
