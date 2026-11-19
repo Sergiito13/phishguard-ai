@@ -1,0 +1,2 @@
+training_rows,source_memberships,urls_in_multiple_sources,unique_group_keys,group_keys_shared_across_sources,mixed_label_group_keys,blank_domain_status_rows,https_feature_mismatches,length_feature_mismatches,slash_feature_mismatches
+376898,403170,26160,285325,31109,314,0,0,0,0
