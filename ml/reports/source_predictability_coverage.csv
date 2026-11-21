@@ -1,0 +1,2 @@
+input_rows,single_source_rows,excluded_multi_source_rows,excluded_fraction,single_source_group_count,diagnostic_fit_rows,diagnostic_holdout_rows,diagnostic_fit_groups,diagnostic_holdout_groups
+376898,350738,26160,0.06940869943592165,261399,21119,7061,17741,5446

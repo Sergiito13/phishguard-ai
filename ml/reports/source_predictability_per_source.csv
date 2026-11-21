@@ -1,0 +1,13 @@
+scenario,source,holdout_samples,source_recall
+all,legitphish,1061,0.820923656927427
+all,phiusiil,2000,0.806
+all,phishbd,2000,0.8825
+all,url_phish,2000,0.331
+legitimate_only,legitphish,61,0.09836065573770492
+legitimate_only,phiusiil,1000,0.841
+legitimate_only,phishbd,1000,0.993
+legitimate_only,url_phish,1000,0.474
+phishing_only,legitphish,1000,0.866
+phishing_only,phiusiil,1000,0.765
+phishing_only,phishbd,1000,0.798
+phishing_only,url_phish,1000,0.249
