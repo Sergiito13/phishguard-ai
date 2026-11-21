@@ -1,0 +1,11 @@
+strategy,evaluation,training_samples,weighted,mean_weight,max_weight
+uniform,overall,376898,False,1.0,1.0
+source_class,overall,376898,True,1.0,4.058951494787629
+uniform,legitphish,293661,False,1.0,1.0
+source_class,legitphish,293661,True,1.0,6.692670586626556
+uniform,phiusiil,197232,False,1.0,1.0
+source_class,phiusiil,197232,True,1.0,11.904452489468516
+uniform,phishbd,263544,False,1.0,1.0
+source_class,phishbd,263544,True,1.0,6.847077162899456
+uniform,url_phish,281298,False,1.0,1.0
+source_class,url_phish,281298,True,1.0,3.841924117020405
