@@ -1,0 +1,13 @@
+feature_set,evaluation_source,intervention,samples,flipped_predictions,large_score_changes,flip_fraction,mean_absolute_delta,mean_signed_delta
+extended_v2,legitphish,scheme_swap,1600,0,0,0.0,0.0,0.0
+extended_v2,phishbd,scheme_swap,1600,0,0,0.0,0.0,0.0
+extended_v2,phiusiil,scheme_swap,1600,0,0,0.0,0.0,0.0
+extended_v2,url_phish,scheme_swap,1600,0,0,0.0,0.0,0.0
+hybrid_v1_extended,legitphish,https_flag_only,1600,795,880,0.496875,0.4441675454665244,0.4396634058993331
+hybrid_v1_extended,legitphish,scheme_swap,1600,783,880,0.489375,0.43824884633589056,0.43352409864371333
+hybrid_v1_extended,phishbd,https_flag_only,1600,1075,1355,0.671875,0.48012864736737115,-0.06392787605181285
+hybrid_v1_extended,phishbd,scheme_swap,1600,1049,1350,0.655625,0.461363084217121,-0.07200062557676361
+hybrid_v1_extended,phiusiil,https_flag_only,1600,957,1192,0.598125,0.511280528414779,0.23733087762839788
+hybrid_v1_extended,phiusiil,scheme_swap,1600,932,1188,0.5825,0.4939728014094517,0.21819577197273177
+hybrid_v1_extended,url_phish,https_flag_only,1600,102,226,0.06375,0.09235482608378107,0.018709371084854095
+hybrid_v1_extended,url_phish,scheme_swap,1600,100,226,0.0625,0.09132229267571804,0.018047019334978858
