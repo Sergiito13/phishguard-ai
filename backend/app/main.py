@@ -34,15 +34,50 @@ app = FastAPI(
 # CORS CONFIGURATION
 # ============================================================
 
+# Allowed frontend origins
+
+ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
+
+# Firefox extensions use dynamically assigned UUID origins.
+#
+# Example:
+# moz-extension://a31f8b20-5b52-44e1-a518-2c789a124abc
+#
+# This regex allows Firefox extension origins for
+# local development.
+#
+# For production, restrict access to explicitly
+# approved origins.
+
+FIREFOX_EXTENSION_ORIGIN_REGEX = (
+    r"^moz-extension://"
+    r"[0-9a-fA-F]{8}-"
+    r"(?:[0-9a-fA-F]{4}-){3}"
+    r"[0-9a-fA-F]{12}$"
+)
+
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ],
+
+    allow_origins=ALLOWED_ORIGINS,
+
+    allow_origin_regex=FIREFOX_EXTENSION_ORIGIN_REGEX,
+
     allow_credentials=False,
-    allow_methods=["GET", "POST"],
-    allow_headers=["Content-Type"],
+
+    allow_methods=[
+        "GET",
+        "POST",
+    ],
+
+    allow_headers=[
+        "Content-Type",
+    ],
 )
 
 
