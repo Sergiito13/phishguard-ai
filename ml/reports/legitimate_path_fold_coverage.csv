@@ -1,0 +1,5 @@
+excluded_source,training_samples,held_out_samples,training_benign_rows,training_benign_path_rows,training_benign_path_fraction,training_benign_path_domain_groups,training_benign_path_top5_domain_share,held_out_benign_rows,held_out_benign_path_rows,held_out_benign_path_domain_groups
+legitphish,293661,68714,159261,14999,0.09417873804635159,11807,0.016801120074671643,25997,149,93
+phiusiil,197232,162798,86232,13525,0.1568443269319974,11052,0.013160813308687616,94212,0,0
+phishbd,263544,91107,156082,14615,0.09363667815635371,11795,0.011768730756072529,27642,5,5
+url_phish,281298,80551,114575,118,0.0010298930831333188,75,0.3813559322033898,68944,16236,12208

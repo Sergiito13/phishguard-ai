@@ -1,0 +1,13 @@
+excluded_source,contributing_source,membership_rows,fractional_rows,domain_groups
+legitphish,phiusiil,0,0.0,0
+legitphish,phishbd,4,4.0,4
+legitphish,url_phish,14995,14995.0,11804
+phiusiil,legitphish,112,111.5,65
+phiusiil,phishbd,3,3.0,3
+phiusiil,url_phish,13411,13410.5,10990
+phishbd,legitphish,45,44.5,43
+phishbd,phiusiil,0,0.0,0
+phishbd,url_phish,14571,14570.5,11754
+url_phish,legitphish,115,115.0,72
+url_phish,phiusiil,0,0.0,0
+url_phish,phishbd,3,3.0,3
