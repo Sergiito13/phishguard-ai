@@ -1,0 +1,5 @@
+check,checked,anomalies
+raw_records_reconciled_with_clean_and_quarantine,584781,0
+deduplicated_rows_preserved_in_domain_groups,545024,0
+train_rows_preserved_in_v2_train,376898,0
+v2_path_length_matches_parsed_train_url,376898,0

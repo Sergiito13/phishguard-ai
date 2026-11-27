@@ -1,0 +1,10 @@
+source,label,reason,records,records_with_path,unparseable_records
+legitphish,1,missing_group_key,1307,1226,0
+legitphish,1,unsupported_url_format,3,0,3
+legitphish,invalid,invalid_label,1,0,0
+phishbd,1,missing_group_key,69,0,67
+url_phish,0,missing_group_key,3,1,0
+legitphish,invalid,raw_invalid_label_total,1,0,0
+phiusiil,invalid,raw_invalid_label_total,0,0,0
+url_phish,invalid,raw_invalid_label_total,0,0,0
+phishbd,invalid,raw_invalid_label_total,0,0,0
